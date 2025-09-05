@@ -1,6 +1,7 @@
 # relationship_app/views.py
 from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
 
