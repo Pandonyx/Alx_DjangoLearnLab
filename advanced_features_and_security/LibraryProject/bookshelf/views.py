@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 from .models import Book
-from .forms import BookForm, CustomUserCreationForm, ExampleForm
+from .forms import BookForm, CustomUserCreationForm
 
 # --- Book CRUD Views ---
 @login_required
