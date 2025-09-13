@@ -39,10 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookshelf',
     'relationship_app',
-    'users',
 ]
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'bookshelf.CustomUser' # Task 1: Set custom user model
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,6 +121,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Media files (for user-uploaded content like profile_photo)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -132,3 +135,28 @@ LOGIN_REDIRECT_URL = "/books/"
 
 # After a logout, send the user here:
 LOGOUT_REDIRECT_URL = "/login/"
+
+# --- SECURITY SETTINGS (for production) ---
+# Task 3 & 4: Security Best Practices and HTTPS
+# These settings should be enabled for a production environment running HTTPS.
+
+# Set DEBUG to False in a production environment.
+# DEBUG = False
+
+# Redirect all HTTP requests to HTTPS.
+# SECURE_SSL_REDIRECT = True
+
+# Instructs the browser to only connect to your site via HTTPS for the next year.
+# SECURE_HSTS_SECONDS = 31536000  # 1 year
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+
+# Ensure session and CSRF cookies are only sent over HTTPS.
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+
+# Prevents the browser from interpreting files as a different MIME type.
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Prevents your site from being rendered in a <frame>, <iframe>, <embed> or <object>.
+X_FRAME_OPTIONS = 'DENY'

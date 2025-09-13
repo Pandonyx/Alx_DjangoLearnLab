@@ -1,0 +1,11 @@
+{% if form.instance.pk %}
+<h2>Edit Book</h2>
+{% else %}
+<h2>Create Book</h2>
+{% endif %}
+
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+<a href="{% url 'book_list' %}">Cancel</a>
