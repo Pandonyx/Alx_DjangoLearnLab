@@ -158,5 +158,9 @@ LOGOUT_REDIRECT_URL = "/login/"
 # Prevents the browser from interpreting files as a different MIME type.
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
+# Enables the browser's XSS filter. Note: This header is deprecated in modern
+# browsers in favor of a strong Content Security Policy (CSP).
+SECURE_BROWSER_XSS_FILTER = True
+
 # Prevents your site from being rendered in a <frame>, <iframe>, <embed> or <object>.
 X_FRAME_OPTIONS = 'DENY'
