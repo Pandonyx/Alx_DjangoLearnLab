@@ -11,3 +11,8 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ['title', 'author', 'published_year']
+
+class ExampleForm(forms.Form):
+    """A simple example form for demonstration purposes."""
+    name = forms.CharField(max_length=100, help_text="Enter your full name.")
+    email = forms.EmailField(help_text="Enter a valid email address.")
