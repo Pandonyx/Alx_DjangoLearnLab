@@ -146,6 +146,10 @@ LOGOUT_REDIRECT_URL = "/login/"
 # Redirect all HTTP requests to HTTPS.
 # SECURE_SSL_REDIRECT = True
 
+# Used with SECURE_SSL_REDIRECT if behind a reverse proxy.
+# Tells Django to trust the X-Forwarded-Proto header from the proxy.
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Instructs the browser to only connect to your site via HTTPS for the next year.
 # SECURE_HSTS_SECONDS = 31536000  # 1 year
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
