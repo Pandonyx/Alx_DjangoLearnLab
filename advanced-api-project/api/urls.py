@@ -1,8 +1,8 @@
-
 from django.urls import path
 from . import views
 
 urlpatterns = [
+    # Book URLs
     # Book ListView - GET /books/
     path('books/', views.BookListView.as_view(), name='book-list'),
     
@@ -17,4 +17,11 @@ urlpatterns = [
     
     # Book DeleteView - DELETE /books/<int:pk>/delete/
     path('books/<int:pk>/delete/', views.BookDeleteView.as_view(), name='book-delete'),
+    
+    # Author URLs
+    # Author ListView - GET /authors/
+    path('authors/', views.AuthorListView.as_view(), name='author-list'),
+    
+    # Author DetailView - GET /authors/<int:pk>/
+    path('authors/<int:pk>/', views.AuthorDetailView.as_view(), name='author-detail'),
 ]

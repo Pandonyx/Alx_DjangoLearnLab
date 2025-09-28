@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from .models import Book, Author
-from .serializers import BookSerializer
+from .serializers import BookSerializer, AuthorSerializer
 
 
 class BookListView(generics.ListAPIView):
@@ -171,3 +171,26 @@ class BookDeleteView(generics.DestroyAPIView):
         return Response({
             'message': f'Book "{book_title}" deleted successfully'
         }, status=status.HTTP_200_OK)
+
+
+# Author Views for completeness
+class AuthorListView(generics.ListAPIView):
+    """
+    Generic ListView for retrieving all authors.
+    
+    Provides GET endpoint to retrieve a list of all authors with their books.
+    """
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class AuthorDetailView(generics.RetrieveAPIView):
+    """
+    Generic DetailView for retrieving a single author by ID.
+    
+    Provides GET endpoint to retrieve a specific author with their books.
+    """
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
