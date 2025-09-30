@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'blog',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,13 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+# Login/Logout redirects
+LOGIN_REDIRECT_URL = 'blog-home'
+LOGOUT_REDIRECT_URL = 'blog-home'
+LOGIN_URL = 'login'
+# Email configuration for password reset (for development)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Password validation
