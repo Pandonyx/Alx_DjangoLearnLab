@@ -6,7 +6,8 @@
     <title>Register</title>
     <link
       rel="stylesheet"
-      href="{% static 'blog/css/style.css' %}" />
+      type="text/css"
+      href="{% static 'users/css/style.css' %}" />
   </head>
   <body>
     <div class="content-section">
@@ -14,9 +15,7 @@
         {% csrf_token %}
         <fieldset class="form-group">
           <legend class="border-bottom mb-4">Join Today</legend>
-          {% if form.errors %}
-          <div class="alert alert-danger">{{ form.errors }}</div>
-          {% endif %} {{ form.as_p }}
+          {{ form.as_p }}
         </fieldset>
         <div class="form-group">
           <button type="submit">Sign Up</button>
@@ -28,6 +27,6 @@
         </small>
       </div>
     </div>
-    <script src="{% static 'blog/js/main.js' %}"></script>
+    <script src="{% static 'users/js/main.js' %}"></script>
   </body>
 </html>

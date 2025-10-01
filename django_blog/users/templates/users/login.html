@@ -6,7 +6,8 @@
     <title>Login</title>
     <link
       rel="stylesheet"
-      href="{% static 'blog/css/style.css' %}" />
+      type="text/css"
+      href="{% static 'users/css/style.css' %}" />
   </head>
   <body>
     <div class="content-section">
@@ -19,9 +20,6 @@
         <div class="form-group">
           <button type="submit">Login</button>
         </div>
-        <small class="text-muted ml-2">
-          <a href="{% url 'password_reset' %}">Forgot Password?</a>
-        </small>
       </form>
       <div class="border-top pt-3">
         <small class="text-muted">
@@ -29,6 +27,6 @@
         </small>
       </div>
     </div>
-    <script src="{% static 'blog/js/main.js' %}"></script>
+    <script src="{% static 'users/js/main.js' %}"></script>
   </body>
 </html>
