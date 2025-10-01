@@ -7,6 +7,20 @@
       By <strong>{{ post.author.username }}</strong> on {{
       post.published_date|date:"F d, Y" }}
     </p>
+
+    <!-- Display Tags -->
+    {% if post.tags.all %}
+    <div class="post-tags">
+      <strong>Tags:</strong>
+      {% for tag in post.tags.all %}
+      <a
+        href="{% url 'posts-by-tag' tag.slug %}"
+        class="tag"
+        >{{ tag.name }}</a
+      >
+      {% endfor %}
+    </div>
+    {% endif %}
   </div>
 
   {% if post.author == user %}

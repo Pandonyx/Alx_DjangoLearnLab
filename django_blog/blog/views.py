@@ -9,6 +9,8 @@ from django.views.generic import (
     DeleteView
 )
 from django.urls import reverse_lazy
+from django.db.models import Q
+from taggit.models import Tag
 from .models import Post, Comment
 from .forms import CommentForm
 
@@ -52,7 +54,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     """Allow authenticated users to create new posts"""
     model = Post
     template_name = 'blog/post_form.html'
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'tags']
     
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -63,7 +65,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """Allow post authors to edit their posts"""
     model = Post
     template_name = 'blog/post_form.html'
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'tags']
     
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -136,3 +138,42 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     
     def get_success_url(self):
         return reverse_lazy('post-detail', kwargs={'pk': self.object.post.pk})
+
+
+# Search and Tag Views
+
+def search_posts(request):
+    """Search posts by title, content, or tags"""
+    query = request.GET.get('q', '')
+    posts = Post.objects.none()
+    
+    if query:
+        posts = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct().order_by('-published_date')
+    
+    context = {
+        'posts': posts,
+        'query': query,
+    }
+    return render(request, 'blog/search_results.html', context)
+
+
+class PostByTagListView(ListView):
+    """Display posts filtered by a specific tag"""
+    model = Post
+    template_name = 'blog/posts_by_tag.html'
+    context_object_name = 'posts'
+    paginate_by = 5
+    
+    def get_queryset(self):
+        tag_slug = self.kwargs.get('tag_slug')
+        return Post.objects.filter(tags__slug=tag_slug).order_by('-published_date')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tag_slug = self.kwargs.get('tag_slug')
+        context['tag'] = get_object_or_404(Tag, slug=tag_slug)
+        return context
