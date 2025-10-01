@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %} {% block title %}Edit Comment{% endblock %} {%
+block content %}
+<div class="content-section">
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Edit Comment</legend>
+      {{ form.as_p }}
+    </fieldset>
+    <div class="form-group">
+      <button
+        type="submit"
+        class="btn btn-primary">
+        Update Comment
+      </button>
+      <a
+        href="{% url 'post-detail' object.post.pk %}"
+        class="btn btn-secondary"
+        >Cancel</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

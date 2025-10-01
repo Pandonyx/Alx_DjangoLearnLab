@@ -27,6 +27,62 @@
   <div class="post-content">{{ post.content|linebreaks }}</div>
 </article>
 
+<!-- Comments Section -->
+<div class="comments-section">
+  <h3>Comments ({{ comments.count }})</h3>
+
+  {% if user.is_authenticated %}
+  <div class="comment-form-section">
+    <h4>Add a Comment</h4>
+    <form
+      method="POST"
+      action="{% url 'add-comment' post.pk %}">
+      {% csrf_token %} {{ comment_form.as_p }}
+      <button
+        type="submit"
+        class="btn btn-primary">
+        Post Comment
+      </button>
+    </form>
+  </div>
+  {% else %}
+  <p><a href="{% url 'login' %}">Login</a> to leave a comment.</p>
+  {% endif %}
+
+  <div class="comments-list">
+    {% for comment in comments %}
+    <div class="comment">
+      <div class="comment-header">
+        <strong>{{ comment.author.username }}</strong>
+        <span class="comment-date"
+          >{{ comment.created_at|date:"F d, Y, g:i a" }}</span
+        >
+        {% if comment.created_at != comment.updated_at %}
+        <span class="comment-edited">(edited)</span>
+        {% endif %}
+      </div>
+      <div class="comment-content">{{ comment.content|linebreaks }}</div>
+      {% if comment.author == user %}
+      <div class="comment-actions">
+        <a
+          href="{% url 'comment-update' comment.pk %}"
+          class="btn-small"
+          >Edit</a
+        >
+        <a
+          href="{% url 'comment-delete' comment.pk %}"
+          class="btn-small btn-danger-small"
+          >Delete</a
+        >
+      </div>
+      {% endif %}
+    </div>
+    {% empty %}
+    <p>No comments yet. Be the first to comment!</p>
+    {% endfor %}
+  </div>
+</div>
+
 <div class="post-navigation">
   <a
     href="{% url 'post-list' %}"
